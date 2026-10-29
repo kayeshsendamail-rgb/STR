@@ -1,1 +1,61 @@
+// src/components/common/Header.tsx
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 
+const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <header className="bg-cream shadow-sm">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <Link href="/" className="text-2xl font-bold text-charcoal">
+          THE HIVE
+        </Link>
+        <nav className="hidden md:flex space-x-8">
+          <Link href="/" className={`text-charcoal hover:text-terracotta ${router.pathname === '/' ? 'font-bold' : ''}`}>
+            Home
+          </Link>
+          <Link href="/services" className={`text-charcoal hover:text-terracotta ${router.pathname === '/services' ? 'font-bold' : ''}`}>
+            Services
+          </Link>
+          <Link href="/about" className={`text-charcoal hover:text-terracotta ${router.pathname === '/about' ? 'font-bold' : ''}`}>
+            About Us
+          </Link>
+          <Link href="/contact" className={`text-charcoal hover:text-terracotta ${router.pathname === '/contact' ? 'font-bold' : ''}`}>
+            Contact
+          </Link>
+        </nav>
+        <button onClick={toggleMenu} className="md:hidden text-charcoal">
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+      {isOpen && (
+        <div className="md:hidden bg-cream shadow-sm">
+          <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+            <Link href="/" className={`text-charcoal hover:text-terracotta ${router.pathname === '/' ? 'font-bold' : ''}`}>
+              Home
+            </Link>
+            <Link href="/services" className={`text-charcoal hover:text-terracotta ${router.pathname === '/services' ? 'font-bold' : ''}`}>
+              Services
+            </Link>
+            <Link href="/about" className={`text-charcoal hover:text-terracotta ${router.pathname === '/about' ? 'font-bold' : ''}`}>
+              About Us
+            </Link>
+            <Link href="/contact" className={`text-charcoal hover:text-terracotta ${router.pathname === '/contact' ? 'font-bold' : ''}`}>
+              Contact
+            </Link>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+};
+
+export default Header;
